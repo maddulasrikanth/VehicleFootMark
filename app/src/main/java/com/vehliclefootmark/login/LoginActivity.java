@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.vehliclefootmark.ErrorConstants;
@@ -20,6 +21,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
 
     private EditText et_UserName, et_Password;
     private Button btn_Login;
+    private ImageView mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,9 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
         et_Password = (EditText) findViewById(R.id.et_UserPwd);
         btn_Login = (Button) findViewById(R.id.btn_Login);
 
-		/*Listeners*/
+        mBackButton = (ImageView) findViewById(R.id.img_back);
+        mBackButton.setOnClickListener(this);
+
         btn_Login.setOnClickListener(this);
     }
 
@@ -52,6 +56,9 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
                 hideSoftKeyboard();
                 LoginServiceHandler loginService = new LoginServiceHandler(LoginActivity.this);
                 //loginService.doLoginRequest(strDeviceId, strUserName, strPassword, strDeviceTypeCode, strDeviceToken, strAdvertisingId);
+                break;
+            case R.id.img_back:
+                finish();
                 break;
         }
 

@@ -18,4 +18,14 @@
     <string name="lbl_register">Register</string>
     <string name="lbl_or">OR</string>
     <string name="lbl_login_form">Login Form</string>
+    <string name="lbl_register_form">Registration form</string>
+    <string name="prompt_firstname">First name</string>
+    <string name="prompt_lastname">Last name</string>
+    <string name="action_register_short">Regtister</string>
+    <string name="prompt_confirm_password">Confirm password</string>
+    <string name="prompt_vehicle_model">Vehicle model</string>
+    <string name="prompt_vehicle_number">Vehicle number</string>
+    <string name="lbl_password_not_match">Passwords doesn\'t match</string>
+    <string name="lbl_all_fields_manditory">All fields are manditory</string>
+    <string name="lbl_trying_to_register">Trying to register</string>
 </resources>
