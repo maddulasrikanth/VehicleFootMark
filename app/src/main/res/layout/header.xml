@@ -22,4 +22,14 @@
         android:textColor="@color/header_text_color"
         android:textSize="@dimen/header_text_size"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:src="@drawable/logout"
+        android:visibility="gone" />
 </RelativeLayout>

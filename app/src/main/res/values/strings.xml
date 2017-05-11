@@ -28,4 +28,18 @@
     <string name="lbl_password_not_match">Passwords doesn\'t match</string>
     <string name="lbl_all_fields_manditory">All fields are manditory</string>
     <string name="lbl_trying_to_register">Trying to register</string>
+    <string name="lbl_service_entry_form">Service Entry form</string>
+    <string name="lbl_interim_service">Interim Service</string>
+    <string name="lbl_full_service">Full Service</string>
+    <string name="lbl_mojor_service">Major Service</string>
+    <string name="prompt_labor_cost">Labor cost</string>
+    <string name="prompt_parts_cost">Parts cost</string>
+    <string name="prompt_tax">Tax</string>
+    <string name="date_completed">Date Completed</string>
+    <string name="prompt_next_due">Next due</string>
+    <string name="prompt_serviced_by">Serviced by</string>
+    <string name="prompt_comments">Comments</string>
+    <string name="lbl_save">Save</string>
+    <string name="lbl_home">Home</string>
+
 </resources>

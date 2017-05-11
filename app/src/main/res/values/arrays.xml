@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="selection">
+        <item>Service Entry</item>
+        <item>Repair Entry</item>
+        <item>Fuel Entry</item>
+        <item>Reports</item>
+    </string-array>
+    <string-array name="services_array">
+        <item>Interim service</item>
+        <item>Full service</item>
+        <item>Major service</item>
+    </string-array>
+</resources>

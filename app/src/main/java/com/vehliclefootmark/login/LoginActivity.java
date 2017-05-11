@@ -3,6 +3,7 @@ package com.vehliclefootmark.login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.vehliclefootmark.ErrorConstants;
+import com.vehliclefootmark.HomeActivity;
 import com.vehliclefootmark.R;
 
 
@@ -56,6 +58,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
                 hideSoftKeyboard();
                 LoginServiceHandler loginService = new LoginServiceHandler(LoginActivity.this);
                 //loginService.doLoginRequest(strDeviceId, strUserName, strPassword, strDeviceTypeCode, strDeviceToken, strAdvertisingId);
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 break;
             case R.id.img_back:
                 finish();
