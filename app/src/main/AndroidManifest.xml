@@ -24,6 +24,7 @@
         <activity android:name=".registration.RegistrationActivity" />
         <activity android:name=".serviceentry.ServiceEntryActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".fuel.FuelEntryActivity"></activity>
     </application>
 
 </manifest>

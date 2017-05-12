@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.vehliclefootmark.fuel.FuelEntryActivity;
 import com.vehliclefootmark.login.LoginActivity;
 import com.vehliclefootmark.serviceentry.ServiceEntryActivity;
 
@@ -53,6 +54,9 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
         switch (i){
             case 0:
                 startActivity(new Intent(HomeActivity.this, ServiceEntryActivity.class));
+                break;
+            case 2:
+                startActivity(new Intent(HomeActivity.this, FuelEntryActivity.class));
                 break;
         }
     }

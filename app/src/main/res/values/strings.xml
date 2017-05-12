@@ -41,5 +41,15 @@
     <string name="prompt_comments">Comments</string>
     <string name="lbl_save">Save</string>
     <string name="lbl_home">Home</string>
+    <string name="lbl_fuel_entry_form">Fuel Entry Form</string>
+    <string name="lbl_ethanol">Ethanol</string>
+    <string name="lbl_methanol">Methanol</string>
+    <string name="lbl_gasoline">Gasoline</string>
+    <string name="lbl_diesel">Diesel</string>
+    <string name="lbl_biodiesel">Biodiesel</string>
+    <string name="date_fuel_entered">Fuel Entered On</string>
+    <string name="prompt_fuel_place">Place</string>
+    <string name="prompt_total_fuel">Fuel Total</string>
+    <string name="prompt_amount">Amount</string>
 
 </resources>

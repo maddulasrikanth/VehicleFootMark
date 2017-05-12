@@ -11,4 +11,11 @@
         <item>Full service</item>
         <item>Major service</item>
     </string-array>
+    <string-array name="fuel_array">
+        <item>Ethanol</item>
+        <item>Methanol</item>
+        <item>Gasoline</item>
+        <item>Diesel</item>
+        <item>Biodiesel</item>
+    </string-array>
 </resources>
