@@ -51,5 +51,10 @@
     <string name="prompt_fuel_place">Place</string>
     <string name="prompt_total_fuel">Fuel Total</string>
     <string name="prompt_amount">Amount</string>
+    <string name="date_of_problem">Date of problem</string>
+    <string name="prompt_date_of_repair">Date of repair</string>
+    <string name="prompt_summary">Summary</string>
+    <string name="prompt_service_summary">Service summary</string>
+    <string name="prompt_material_cost">Material cost</string>
 
 </resources>

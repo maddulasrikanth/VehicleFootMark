@@ -21,10 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".registration.RegistrationActivity" />
-        <activity android:name=".serviceentry.ServiceEntryActivity" />
+        <activity
+            android:name=".registration.RegistrationActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".serviceentry.ServiceEntryActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".fuel.FuelEntryActivity"></activity>
+        <activity
+            android:name=".fuel.FuelEntryActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".repair.RepairEntryActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>

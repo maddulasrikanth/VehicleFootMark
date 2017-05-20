@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.vehliclefootmark.fuel.FuelEntryActivity;
 import com.vehliclefootmark.login.LoginActivity;
+import com.vehliclefootmark.repair.RepairEntryActivity;
 import com.vehliclefootmark.serviceentry.ServiceEntryActivity;
 
 public class HomeActivity extends Activity implements AdapterView.OnItemClickListener, OnClickListener{
@@ -54,6 +55,9 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
         switch (i){
             case 0:
                 startActivity(new Intent(HomeActivity.this, ServiceEntryActivity.class));
+                break;
+            case 1:
+                startActivity(new Intent(HomeActivity.this, RepairEntryActivity.class));
                 break;
             case 2:
                 startActivity(new Intent(HomeActivity.this, FuelEntryActivity.class));
