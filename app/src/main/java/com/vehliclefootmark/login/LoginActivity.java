@@ -57,8 +57,8 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
             case R.id.btn_Login:
                 hideSoftKeyboard();
                 LoginServiceHandler loginService = new LoginServiceHandler(LoginActivity.this);
-                //loginService.doLoginRequest(strDeviceId, strUserName, strPassword, strDeviceTypeCode, strDeviceToken, strAdvertisingId);
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                loginService.doLoginRequest();
+                //startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 break;
             case R.id.img_back:
                 finish();

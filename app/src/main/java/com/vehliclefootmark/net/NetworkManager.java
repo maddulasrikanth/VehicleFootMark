@@ -9,6 +9,6 @@ public class NetworkManager {
 	// post type
 	public final static int POST_TYPE = 1;
 
-	public final static String[] METHOD = { "GET", "PUT" };
+	public final static String[] METHOD = { "GET", "POST" };
 
 }

@@ -23,16 +23,15 @@ public class LoginServiceHandler extends GenericServiceHandler {
 		mOnLoginServiceHandlerListener=(OnLoginServiceHandlerListener) context;
 	}
 
-	public void doLoginRequest(String deviceId,String emaiId,String password,String deviceTypeCode,
-			String deviceToken,String advertisingId){
-		Log.i(TAG, "advertisingidentifier : "+advertisingId);
+	public void doLoginRequest(){
+		/*Log.i(TAG, "advertisingidentifier : "+advertisingId);
 		if(emaiId.length()==0 && password.length()==0){
 			showDialog(ErrorConstants.MSG_EMAIL_PWD_BLANK);
 		}else if(emaiId.length()==0) {
 			showDialog(ErrorConstants.MSG_EMAIL_BLANK);
 		}else if(password.length()==0){
 			showDialog(ErrorConstants.MSG_PASSWORD_BLANK);
-		}else{
+		}else{*/
 			/*if(!UIUtils.isValidEmail(emaiId) && !UIUtils.isValidPassword(password)){
 				showDialog(ErrorConstants.MSG_EMAIL_PWD_INVALID);
 			}else if (!UIUtils.isValidEmail(emaiId)) {
@@ -42,25 +41,21 @@ public class LoginServiceHandler extends GenericServiceHandler {
 			}else{*/
 				String url= URLConstant.BASE_URL+URLConstant.LOGIN_PATH;
 				HashMap<String, String> paramters = new HashMap<String, String>();
-				paramters.put("deviceid", deviceId);
-				paramters.put("email", emaiId);
-				paramters.put("userpwd", password);
-				paramters.put("devicetypecode", deviceTypeCode);
-				paramters.put("devicetoken", deviceToken);
-				paramters.put("advertisingidentifier", advertisingId);
+				paramters.put("un", "ankur@griffith.com");
+				paramters.put("pw", "ankur");
 
-				RequestPacket requestPacket = new RequestPacket(url, NetworkManager.METHOD[0], paramters,"");
+				RequestPacket requestPacket = new RequestPacket(url, NetworkManager.METHOD[1], paramters,"");
 				/*UIUtils.showProgressDialog(context, "Please Wait...");*/
 				execute(requestPacket);
 			//}
-		}
+		//}
 	}
 
 	@Override
 	protected void processResult(String result) throws JsonSyntaxException, VehicleFootMarkException {
-		LoginStringResponse loginResponse = new Gson().fromJson(result,new TypeToken<LoginStringResponse>() {}.getType());
-		Log.i(TAG, "LOGIN RESULT_1:: " + result);
-		//Log.i(TAG, "LOGIN getActiveshoppinglistid():: " + loginResponse.getCustomers().getActiveshoppinglistid());
+        Log.i(TAG, "LOGIN RESULT_1:: " + result);
+        UserDetails loginResponse = new Gson().fromJson(result,new TypeToken<UserDetails>() {}.getType());
+		Log.i(TAG, "LOGIN getEmail:: " + loginResponse.getEmail());
 	}
 	private void showDialog(int errorCode) {
 		mOnLoginServiceHandlerListener.showErrorDialog(errorCode);
