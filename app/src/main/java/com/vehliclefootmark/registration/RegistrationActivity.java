@@ -1,6 +1,7 @@
 package com.vehliclefootmark.registration;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,9 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vehliclefootmark.HomeActivity;
 import com.vehliclefootmark.R;
+import com.vehliclefootmark.constants.ErrorConstants;
+import com.vehliclefootmark.login.LoginActivity;
+import com.vehliclefootmark.login.LoginServiceHandler;
+import com.vehliclefootmark.util.UIUtils;
 
-public class RegistrationActivity extends Activity implements View.OnClickListener {
+public class RegistrationActivity extends Activity implements View.OnClickListener, OnRegistrationServiceHandlerListener {
 
     private ImageView mBackButton;
     private TextView mTxtHeader;
@@ -61,6 +67,13 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
             } else if (!isPasswordSame(mETPassword.getText().toString(), mETConfirmPassword.getText().toString())) {
                 Toast.makeText(RegistrationActivity.this, R.string.lbl_password_not_match, Toast.LENGTH_SHORT).show();
             } else {
+                RegistrationServiceHandler registrationServiceHandler = new RegistrationServiceHandler(RegistrationActivity.this);
+
+                registrationServiceHandler.doRegisterRequest(RegistrationActivity.this,
+                        mETFirstName.getText().toString(), mETLastName.getText().toString(),
+                        mETEmailID.getText().toString(), mETPassword.getText().toString(),
+                        mETVehicleModel.getText().toString(), mETVehicleNumber.getText().toString());
+
                 Toast.makeText(RegistrationActivity.this, R.string.lbl_trying_to_register, Toast.LENGTH_SHORT).show();
             }
         }
@@ -78,4 +91,32 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
     boolean isPasswordSame(String password, String confirmPassword) {
         return password.equals(confirmPassword);
     }
+
+    @Override
+    public void onResponseError(int errorCode) {
+        showErrorDialog(errorCode);
+    }
+
+    @Override
+    public void showErrorDialog(int errorCode) {
+        UIUtils.cancelProgressDialog();
+        Toast.makeText(RegistrationActivity.this, ErrorConstants.ERROR_LIST.get(errorCode),
+                Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onRegistrationSuccess() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(RegistrationActivity.this, getString(R.string.lbl_user_registered_successfully),
+                        Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                UIUtils.cancelProgressDialog();
+                finish();
+            }
+        });
+    }
+
 }

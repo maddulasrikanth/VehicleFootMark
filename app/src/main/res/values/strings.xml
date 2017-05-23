@@ -56,5 +56,7 @@
     <string name="prompt_summary">Summary</string>
     <string name="prompt_service_summary">Service summary</string>
     <string name="prompt_material_cost">Material cost</string>
+    <string name="lbl_progress_bar_message">Please wait...</string>
+    <string name="lbl_user_registered_successfully">User registered successfully...</string>
 
 </resources>

@@ -1,13 +1,12 @@
-package com.vehliclefootmark;
+package com.vehliclefootmark.net;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.JsonSyntaxException;
+import com.vehliclefootmark.constants.ErrorConstants;
 import com.vehliclefootmark.customexception.VehicleFootMarkException;
-import com.vehliclefootmark.login.OnServiceRequestHandlerListener;
-import com.vehliclefootmark.net.RequestPacket;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -38,13 +37,9 @@ public abstract class GenericServiceHandler extends AsyncTask<RequestPacket, Int
 	protected Integer doInBackground(RequestPacket... params) {
 		int responseCode = RESPONSE_CODE_OK;
 		try {
-
 			processResult(executePostRequest(params[0]));
-
-
-		} catch (JsonSyntaxException e) {
-			responseCode = ErrorConstants.SOCKET_TIMEOUT_EXCEPTION;
 		} catch (VehicleFootMarkException e) {
+			e.printStackTrace();
 			responseCode = ErrorConstants.NETWORK_ERROR;
 		}  catch (Exception e) {
 			e.printStackTrace();

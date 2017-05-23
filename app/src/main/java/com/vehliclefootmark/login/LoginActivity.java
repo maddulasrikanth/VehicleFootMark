@@ -13,15 +13,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.vehliclefootmark.ErrorConstants;
+import com.vehliclefootmark.constants.ErrorConstants;
 import com.vehliclefootmark.HomeActivity;
 import com.vehliclefootmark.R;
+import com.vehliclefootmark.util.UIUtils;
 
 
 public class LoginActivity extends Activity implements OnClickListener, OnLoginServiceHandlerListener {
     private String TAG = "LoginActivity";
 
-    private EditText et_UserName, et_Password;
+    private EditText mETUsername, mETPassword;
     private Button btn_Login;
     private ImageView mBackButton;
 
@@ -34,8 +35,8 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
 
 
     private void init() {
-        et_UserName = (EditText) findViewById(R.id.et_UserName);
-        et_Password = (EditText) findViewById(R.id.et_UserPwd);
+        mETUsername = (EditText) findViewById(R.id.et_UserName);
+        mETPassword = (EditText) findViewById(R.id.et_UserPwd);
         btn_Login = (Button) findViewById(R.id.btn_Login);
 
         mBackButton = (ImageView) findViewById(R.id.img_back);
@@ -47,8 +48,8 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
 
     private void hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(et_UserName.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(et_Password.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mETUsername.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mETPassword.getWindowToken(), 0);
     }
 
     @Override
@@ -57,8 +58,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
             case R.id.btn_Login:
                 hideSoftKeyboard();
                 LoginServiceHandler loginService = new LoginServiceHandler(LoginActivity.this);
-                loginService.doLoginRequest();
-                //startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                loginService.doLoginRequest(LoginActivity.this, mETUsername.getText().toString(), mETPassword.getText().toString());
                 break;
             case R.id.img_back:
                 finish();
@@ -74,9 +74,17 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
 
     @Override
     public void showErrorDialog(int errorCode) {
-        Toast.makeText(LoginActivity.this, ErrorConstants.hmErrorList.get(errorCode),
+        UIUtils.cancelProgressDialog();
+        Toast.makeText(LoginActivity.this, ErrorConstants.ERROR_LIST.get(errorCode),
                 Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onSuccessLogin() {
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+        UIUtils.cancelProgressDialog();
+        finish();
     }
 
 

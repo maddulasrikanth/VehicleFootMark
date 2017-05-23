@@ -1,6 +1,10 @@
 package com.vehliclefootmark.login;
 
-public interface OnLoginServiceHandlerListener extends OnServiceRequestHandlerListener{
+import com.vehliclefootmark.net.OnServiceRequestHandlerListener;
+
+public interface OnLoginServiceHandlerListener extends OnServiceRequestHandlerListener {
 	
 	void showErrorDialog(int errorCode);
+
+	void onSuccessLogin();
 }

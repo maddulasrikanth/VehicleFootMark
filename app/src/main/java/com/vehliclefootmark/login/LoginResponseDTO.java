@@ -1,6 +1,6 @@
 package com.vehliclefootmark.login;
 
-public class UserDetails {
+public class LoginResponseDTO {
 
     private int userNumber;
     private String email;
@@ -9,7 +9,7 @@ public class UserDetails {
     private String vehicleModel;
     private String vehicleNumber;
 
-    public UserDetails(int userNumber, String email, String firstName, String lastName, String vehicleModel, String vehicleNumber) {
+    public LoginResponseDTO(int userNumber, String email, String firstName, String lastName, String vehicleModel, String vehicleNumber) {
         this.userNumber = userNumber;
         this.email = email;
         this.firstName = firstName;

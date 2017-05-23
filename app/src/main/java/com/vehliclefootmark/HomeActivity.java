@@ -71,6 +71,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
             Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
     }
 }
