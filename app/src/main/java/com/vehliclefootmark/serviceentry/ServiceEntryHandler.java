@@ -19,7 +19,7 @@ import com.vehliclefootmark.util.UIUtils;
 import java.util.HashMap;
 
 public class ServiceEntryHandler extends GenericServiceHandler {
-    private final String TAG = "LoginServiceHandler";
+    private final String TAG = "ServiceEntryHandler";
     OnServiceEntryHandlerListener mOnServiceEntryHandlerListener;
 
     public ServiceEntryHandler(Context context) {
@@ -27,12 +27,13 @@ public class ServiceEntryHandler extends GenericServiceHandler {
         mOnServiceEntryHandlerListener =(OnServiceEntryHandlerListener) context;
     }
 
-    public void doServiceEntryRequest(Context context, String type, String labourCost, String partsCost,
+    public void doServiceEntryRequest(Context context, String userID, String type, String labourCost, String partsCost,
                                       String tax, long completedDate, long nextDue, String servicedBy, String comments) {
 
         UIUtils.showProgressDialog(context, context.getString(R.string.lbl_progress_bar_message));
         String url = URLConstant.BASE_URL + URLConstant.SERVICE_PATH;
         HashMap<String, String> parameters = new HashMap<String, String>();
+        parameters.put("", userID);
         parameters.put("type", type);
         parameters.put("labourcost", labourCost);
         parameters.put("partscost", partsCost);

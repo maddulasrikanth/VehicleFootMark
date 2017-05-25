@@ -43,7 +43,7 @@ public class LoginServiceHandler extends GenericServiceHandler {
         Log.i(TAG, "LOGIN RESULT_1:: " + result);
         LoginResponseDTO loginResponse = new Gson().fromJson(result,new TypeToken<LoginResponseDTO>() {}.getType());
 		Log.i(TAG, "LOGIN getEmail:: " + loginResponse.getEmail());
-		mOnLoginServiceHandlerListener.onSuccessLogin();
+		mOnLoginServiceHandlerListener.onSuccessLogin(loginResponse);
 	}
 	private void showDialog(int errorCode) {
 		mOnLoginServiceHandlerListener.showErrorDialog(errorCode);

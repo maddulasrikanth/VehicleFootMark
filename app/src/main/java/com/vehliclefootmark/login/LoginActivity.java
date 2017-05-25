@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.vehliclefootmark.constants.ErrorConstants;
 import com.vehliclefootmark.HomeActivity;
 import com.vehliclefootmark.R;
+import com.vehliclefootmark.constants.StringConstants;
 import com.vehliclefootmark.util.UIUtils;
 
 
@@ -92,8 +93,11 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
     }
 
     @Override
-    public void onSuccessLogin() {
-        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+    public void onSuccessLogin(LoginResponseDTO loginResponse) {
+        Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+        homeIntent.putExtra(StringConstants.EXTRA_USER_ID, loginResponse.getEmail());
+        homeIntent.putExtra(StringConstants.EXTRA_IS_ADMIN, loginResponse.getEmail());
+        startActivity(homeIntent);
         UIUtils.cancelProgressDialog();
         finish();
     }

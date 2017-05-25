@@ -103,8 +103,8 @@ public class ServiceEntryActivity extends Activity implements OnClickListener, A
     }
 
     private void saveServiceEntry() {
-        ServiceEntryHandler loginService = new ServiceEntryHandler(ServiceEntryActivity.this);
-        loginService.doServiceEntryRequest(ServiceEntryActivity.this, mTypeOfService,
+        ServiceEntryHandler serviceEntryHandler = new ServiceEntryHandler(ServiceEntryActivity.this);
+        serviceEntryHandler.doServiceEntryRequest(ServiceEntryActivity.this,"" ,mTypeOfService,
                 mETLabourCost.getText().toString(), mETPartsCost.getText().toString(),
                 mETTax.getText().toString(), completedDateInMills, nextDueInMills,
                 mETServicedBy.getText().toString(), mETComments.getText().toString());

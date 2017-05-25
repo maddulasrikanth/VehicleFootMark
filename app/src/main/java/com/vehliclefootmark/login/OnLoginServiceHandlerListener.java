@@ -6,5 +6,5 @@ public interface OnLoginServiceHandlerListener extends OnServiceRequestHandlerLi
 	
 	void showErrorDialog(int errorCode);
 
-	void onSuccessLogin();
+	void onSuccessLogin(LoginResponseDTO loginResponse);
 }

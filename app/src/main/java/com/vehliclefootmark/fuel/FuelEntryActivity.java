@@ -3,6 +3,7 @@ package com.vehliclefootmark.fuel;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,11 +16,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vehliclefootmark.HomeActivity;
 import com.vehliclefootmark.R;
+import com.vehliclefootmark.constants.ErrorConstants;
+import com.vehliclefootmark.constants.StringConstants;
+import com.vehliclefootmark.login.LoginActivity;
+import com.vehliclefootmark.login.LoginResponseDTO;
+import com.vehliclefootmark.login.LoginServiceHandler;
+import com.vehliclefootmark.util.UIUtils;
 
 import java.util.Calendar;
 
-public class FuelEntryActivity extends Activity  implements View.OnClickListener, AdapterView.OnItemSelectedListener{
+public class FuelEntryActivity extends Activity  implements View.OnClickListener, AdapterView.OnItemSelectedListener, OnFuelEntryServiceHandlerListener{
 
     private final int DATE_COMPLETED_DIALOG_ID = 999;
     private Button mBtnSave;
@@ -32,12 +40,16 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
     private int day;
     private ImageView mBackButton;
     private TextView mTxtHeader;
+    private String userID;
+    private String mFuelType;
+    private long mFuelEnteredDateInMills;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuel_entry);
         initUI();
+        userID = getIntent().getStringExtra(StringConstants.EXTRA_USER_ID);
     }
 
     private void initUI() {
@@ -48,6 +60,9 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
         mETFuelAmount = (EditText) findViewById(R.id.et_fuel_amount);
         mETFuelTotal = (EditText) findViewById(R.id.et_fuel_total);
 
+        mETDateFuelEntered = (EditText) findViewById(R.id.et_date_fuel_entered);
+        mETDateFuelEntered.setOnClickListener(this);
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner_fuel_type);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.fuel_array, android.R.layout.simple_spinner_item);
@@ -55,9 +70,10 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        mETDateFuelEntered = (EditText) findViewById(R.id.et_date_fuel_entered);
-        mETDateFuelEntered.setOnClickListener(this);
+        setCalendarDate();
+    }
 
+    private void setCalendarDate() {
         final Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
@@ -76,6 +92,11 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
             showDialog(DATE_COMPLETED_DIALOG_ID);
         } else if (view == mBackButton){
             finish();
+        } else if (view == mBtnSave){
+            FuelEntryServiceHandler fuelEntryServiceHandler = new FuelEntryServiceHandler(FuelEntryActivity.this);
+            fuelEntryServiceHandler.doFuelEntryRequest(FuelEntryActivity.this, userID, mETFuelPlace.getText().toString(),
+            mETFuelAmount.getText().toString(), mETFuelTotal.getText().toString(),
+            mFuelEnteredDateInMills, mFuelType);
         }
 
     }
@@ -84,19 +105,19 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
         switch (pos) {
             case 0:
-                Toast.makeText(FuelEntryActivity.this, R.string.lbl_ethanol, Toast.LENGTH_SHORT).show();
+                mFuelType = getString(R.string.lbl_ethanol);
                 break;
             case 1:
-                Toast.makeText(FuelEntryActivity.this, R.string.lbl_methanol, Toast.LENGTH_SHORT).show();
+                mFuelType = getString(R.string.lbl_methanol);
                 break;
             case 2:
-                Toast.makeText(FuelEntryActivity.this, R.string.lbl_gasoline, Toast.LENGTH_SHORT).show();
+                mFuelType = getString(R.string.lbl_gasoline);
                 break;
             case 3:
-                Toast.makeText(FuelEntryActivity.this, R.string.lbl_diesel, Toast.LENGTH_SHORT).show();
+                mFuelType = getString(R.string.lbl_diesel);
                 break;
             case 4:
-                Toast.makeText(FuelEntryActivity.this, R.string.lbl_biodiesel, Toast.LENGTH_SHORT).show();
+                mFuelType = getString(R.string.lbl_biodiesel);
                 break;
         }
     }
@@ -126,7 +147,10 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
             year = selectedYear;
             month = selectedMonth;
             day = selectedDay;
-
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(selectedYear, selectedMonth, selectedDay,
+                    0, 0, 0);
+            mFuelEnteredDateInMills = calendar.getTimeInMillis();
             // set selected date into textview
             mETDateFuelEntered.setText(new StringBuilder().append(month + 1)
                     .append("-").append(day).append("-").append(year)
@@ -135,4 +159,37 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
         }
     };
 
+    @Override
+    public void onResponseError(int errorCode) {
+        showErrorDialog(errorCode);
+    }
+
+    @Override
+    public void showErrorDialog(int errorCode) {
+        UIUtils.cancelProgressDialog();
+        Toast.makeText(FuelEntryActivity.this, ErrorConstants.ERROR_LIST.get(errorCode),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessFuelEntry() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(FuelEntryActivity.this, getString(R.string.lbl_fuel_entry_saved),
+                        Toast.LENGTH_SHORT).show();
+                clearAllFields();
+            }
+        });
+
+    }
+
+    private void clearAllFields() {
+        mETFuelPlace.setText("");
+        mETFuelAmount.setText("");
+        mETFuelTotal.setText("");
+        mETDateFuelEntered.setText("");
+        mFuelEnteredDateInMills = 0;
+        setCalendarDate();
+    }
 }
