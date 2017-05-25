@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.vehliclefootmark.reports.ReportActivity">
+
+    <include layout="@layout/header" />
+
+    <LinearLayout
+        android:id="@+id/lin_reports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <Spinner
+            android:id="@+id/spinner_report_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_date_report_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint=" date_of_problem"
+                android:inputType="textNoSuggestions|date"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_date_report_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint=" prompt_date_of_repair"
+                android:inputType="textNoSuggestions|date"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_generate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" lbl_generate" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TableLayout
+                    android:id="@+id/table_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TableRow android:background="#3366FF">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/type_of_service" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/labour_cost" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/parts_cost" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/tax" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/completed_date" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/next_due_date" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/serviced_by" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:padding="@dimen/table_text_padding"
+                            android:layout_margin="@dimen/table_text_margin"
+                            android:text="@string/comments" />
+                    </TableRow>
+
+                </TableLayout>
+            </HorizontalScrollView>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

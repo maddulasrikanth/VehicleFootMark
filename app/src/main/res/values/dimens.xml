@@ -5,4 +5,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="header_height">45dp</dimen>
     <dimen name="header_text_size">20dp</dimen>
+    <dimen name="table_text_padding">2dp</dimen>
+    <dimen name="table_text_margin">1dp</dimen>
 </resources>

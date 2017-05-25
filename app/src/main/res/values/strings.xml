@@ -61,5 +61,16 @@
     <string name="lbl_is_admin">is Admin</string>
     <string name="lbl_service_entry_saved">Service entry saved successfully...</string>
     <string name="lbl_fuel_entry_saved">Fuel entry saved successfully...</string>
+    <string name="title_activity_report">ReportActivity</string>
+    <string name="lbl_generate">Generate Report</string>
+    <string name="lbl_reports">Reports</string>
+    <string name="type_of_service">Type of service</string>
+    <string name="labour_cost">Labour cost</string>
+    <string name="parts_cost">Parts cost</string>
+    <string name="tax">Tax</string>
+    <string name="completed_date">Completed Date</string>
+    <string name="next_due_date">Next Due Date</string>
+    <string name="serviced_by">Serviced By</string>
+    <string name="comments">Comments</string>
 
 </resources>
