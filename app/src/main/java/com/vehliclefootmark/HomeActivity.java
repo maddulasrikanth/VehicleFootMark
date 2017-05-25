@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.vehliclefootmark.constants.StringConstants;
 import com.vehliclefootmark.fuel.FuelEntryActivity;
 import com.vehliclefootmark.login.LoginActivity;
 import com.vehliclefootmark.repair.RepairEntryActivity;
@@ -22,20 +23,29 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
     private ImageView mBackButton;
     private TextView mTxtHeader;
     private ImageView mLogoutButton;
+    private String mUserID;
+    private boolean mIsAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initUI();
-
+        mUserID = getIntent().getStringExtra(StringConstants.EXTRA_USER_ID);
+        mIsAdmin = getIntent().getBooleanExtra(StringConstants.EXTRA_IS_ADMIN, false);
     }
 
     private void initUI() {
         setHeader();
         ListView listView_selector = (ListView) findViewById(R.id.listview_selector);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, getResources().getStringArray(R.array.selection));
+        ArrayAdapter<String> adapter;
+        if(mIsAdmin) {
+            adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, getResources().getStringArray(R.array.selection_admin));
+        } else {
+            adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, getResources().getStringArray(R.array.selection));
+        }
         listView_selector.setAdapter(adapter);
         listView_selector.setOnItemClickListener(this);
     }
