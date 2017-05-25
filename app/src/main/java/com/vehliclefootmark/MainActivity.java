@@ -16,7 +16,7 @@ import com.vehliclefootmark.registration.RegistrationActivity;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mTxtViewLogin;
-    private TextView mTxtViewRegistration;
+    //private TextView mTxtViewRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTxtViewLogin = (TextView) findViewById(R.id.txt_login);
         TextView txtViewTitle = (TextView) findViewById(R.id.txt_header_title);
         txtViewTitle.setText(getString(R.string.app_name));
-        mTxtViewRegistration = (TextView) findViewById(R.id.txt_register);
-        mTxtViewRegistration.setOnClickListener(this);
+        /*mTxtViewRegistration = (TextView) findViewById(R.id.txt_register);
+        mTxtViewRegistration.setOnClickListener(this);*/
         ImageView imgback = (ImageView) findViewById(R.id.img_back);
         imgback.setVisibility(View.INVISIBLE);
         mTxtViewLogin.setOnClickListener(this);
@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view == mTxtViewLogin) {
             redirectToLoginScreen();
-        } else if(view == mTxtViewRegistration){
+        } /*else if(view == mTxtViewRegistration){
             redirectToRegistrationScreen();
-        }
+        }*/
     }
 
     private void redirectToRegistrationScreen() {

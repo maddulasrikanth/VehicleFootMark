@@ -44,7 +44,7 @@ public class RepairEntryActivity extends Activity  implements View.OnClickListen
         setHeader();
         mBtnSave = (Button) findViewById(R.id.btn_repair_save);
         mBtnSave.setOnClickListener(this);
-        mETLaborCost = (EditText) findViewById(R.id.et_labor_cost);
+        mETLaborCost = (EditText) findViewById(R.id.et_labour_cost);
         mETMaterialCost = (EditText) findViewById(R.id.et_material_cost);
         mETServiceSummary = (EditText) findViewById(R.id.et_service_summary);
         mETSummary = (EditText) findViewById(R.id.et_summary);

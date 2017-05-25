@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,6 +27,8 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
     private EditText mETUsername, mETPassword;
     private Button btn_Login;
     private ImageView mBackButton;
+    private CheckBox mCheckIsAdmin;
+    private boolean mIsAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,13 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
         mETUsername = (EditText) findViewById(R.id.et_UserName);
         mETPassword = (EditText) findViewById(R.id.et_UserPwd);
         btn_Login = (Button) findViewById(R.id.btn_Login);
-
+        mCheckIsAdmin = (CheckBox) findViewById(R.id.check_is_admin);
+        mCheckIsAdmin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mIsAdmin = b;
+            }
+        });
         mBackButton = (ImageView) findViewById(R.id.img_back);
         mBackButton.setOnClickListener(this);
 
@@ -58,7 +68,8 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
             case R.id.btn_Login:
                 hideSoftKeyboard();
                 LoginServiceHandler loginService = new LoginServiceHandler(LoginActivity.this);
-                loginService.doLoginRequest(LoginActivity.this, mETUsername.getText().toString(), mETPassword.getText().toString());
+                loginService.doLoginRequest(LoginActivity.this, mETUsername.getText().toString(),
+                        mETPassword.getText().toString(), mIsAdmin);
                 break;
             case R.id.img_back:
                 finish();

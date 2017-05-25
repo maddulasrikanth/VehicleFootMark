@@ -52,17 +52,17 @@ public abstract class GenericServiceHandler extends AsyncTask<RequestPacket, Int
 		HttpClient httpclient = new DefaultHttpClient();
 		// specify the URL you want to post to
 		HttpPost httppost = new HttpPost(packet.url);
-			// create a list to store HTTP variables and their values
-			List nameValuePairs = new ArrayList();
-			Set<Entry<String, String>> entries = packet.paramters.entrySet();
-			for (Entry<String, String> entry : entries) {
-				nameValuePairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-				Log.i(TAG, "key::" + entry.getKey() + " value:: " + entry.getValue());
-			}
-			// add an HTTP variable and value pair
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			// send the variable and value, in other words post, to the URL
-			HttpResponse response = httpclient.execute(httppost);
+		// create a list to store HTTP variables and their values
+		List nameValuePairs = new ArrayList();
+		Set<Entry<String, String>> entries = packet.paramters.entrySet();
+		for (Entry<String, String> entry : entries) {
+			nameValuePairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+			Log.i(TAG, "key::" + entry.getKey() + " value:: " + entry.getValue());
+		}
+		// add an HTTP variable and value pair
+		httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+		// send the variable and value, in other words post, to the URL
+		HttpResponse response = httpclient.execute(httppost);
 		return EntityUtils.toString(response.getEntity());
 	}
 
