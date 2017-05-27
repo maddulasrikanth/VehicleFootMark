@@ -72,5 +72,6 @@
     <string name="next_due_date">Next Due Date</string>
     <string name="serviced_by">Serviced By</string>
     <string name="comments">Comments</string>
+    <string name="lbl_repair_entry_form">Repair Entry form</string>
 
 </resources>

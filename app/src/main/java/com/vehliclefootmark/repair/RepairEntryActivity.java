@@ -20,7 +20,7 @@ import com.vehliclefootmark.util.UIUtils;
 
 import java.util.Calendar;
 
-public class RepairEntryActivity extends Activity  implements View.OnClickListener, AdapterView.OnItemSelectedListener, OnRepairEntryServiceHandlerListener{
+public class RepairEntryActivity extends Activity  implements View.OnClickListener, OnRepairEntryServiceHandlerListener{
 
     private static final int DATE_PROBLEM_DIALOG_ID = 111;
     private static final int DATE_REPAIR_DIALOG_ID = 112;
@@ -36,7 +36,7 @@ public class RepairEntryActivity extends Activity  implements View.OnClickListen
     private int year;
     private int month;
     private int day;
-    private String userID;
+    private int userID;
     private long mProblemDateInMills;
     private long mRepairDateInMills;
 
@@ -44,7 +44,7 @@ public class RepairEntryActivity extends Activity  implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repair_entry);
-        userID = getIntent().getStringExtra(StringConstants.EXTRA_USER_ID);
+        userID = getIntent().getIntExtra(StringConstants.EXTRA_USER_ID, 0);
         initUI();
     }
 
@@ -77,7 +77,7 @@ public class RepairEntryActivity extends Activity  implements View.OnClickListen
         mBackButton = (ImageView) findViewById(R.id.img_back);
         mBackButton.setOnClickListener(this);
         mTxtHeader = (TextView) findViewById(R.id.txt_header_title);
-        mTxtHeader.setText(getString(R.string.lbl_service_entry_form));
+        mTxtHeader.setText(getString(R.string.lbl_repair_entry_form));
     }
 
     @Override
@@ -91,22 +91,9 @@ public class RepairEntryActivity extends Activity  implements View.OnClickListen
         } else if(view == mBtnSave){
             RepairEntryServiceHandler fuelEntryServiceHandler = new RepairEntryServiceHandler(RepairEntryActivity.this);
             fuelEntryServiceHandler.doRepairEntryRequest(RepairEntryActivity.this, userID, mETLaborCost.getText().toString(),
-            mETMaterialCost.getText().toString(),
-            mETRepairSummary.getText().toString(),
-            mETSummary.getText().toString(),
-            mProblemDateInMills,
-            mRepairDateInMills);
+            mETMaterialCost.getText().toString(), mETRepairSummary.getText().toString(), mETSummary.getText().toString(),
+            mProblemDateInMills, mRepairDateInMills);
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 
     @Override
@@ -183,9 +170,10 @@ public class RepairEntryActivity extends Activity  implements View.OnClickListen
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                UIUtils.cancelProgressDialog();
                 Toast.makeText(RepairEntryActivity.this, getString(R.string.lbl_fuel_entry_saved),
                         Toast.LENGTH_SHORT).show();
-                clearAllFields();
+                //clearAllFields();
             }
         });
     }

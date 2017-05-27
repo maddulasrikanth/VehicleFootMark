@@ -27,7 +27,7 @@ import com.vehliclefootmark.util.UIUtils;
 
 import java.util.Calendar;
 
-public class FuelEntryActivity extends Activity  implements View.OnClickListener, AdapterView.OnItemSelectedListener, OnFuelEntryServiceHandlerListener{
+public class FuelEntryActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener, OnFuelEntryServiceHandlerListener {
 
     private final int DATE_COMPLETED_DIALOG_ID = 999;
     private Button mBtnSave;
@@ -40,7 +40,7 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
     private int day;
     private ImageView mBackButton;
     private TextView mTxtHeader;
-    private String userID;
+    private int userID;
     private String mFuelType;
     private long mFuelEnteredDateInMills;
 
@@ -49,7 +49,7 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuel_entry);
         initUI();
-        userID = getIntent().getStringExtra(StringConstants.EXTRA_USER_ID);
+        userID = getIntent().getIntExtra(StringConstants.EXTRA_USER_ID, 0);
     }
 
     private void initUI() {
@@ -86,17 +86,18 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
         mTxtHeader = (TextView) findViewById(R.id.txt_header_title);
         mTxtHeader.setText(getString(R.string.lbl_fuel_entry_form));
     }
+
     @Override
     public void onClick(View view) {
         if (view == mETDateFuelEntered) {
             showDialog(DATE_COMPLETED_DIALOG_ID);
-        } else if (view == mBackButton){
+        } else if (view == mBackButton) {
             finish();
-        } else if (view == mBtnSave){
+        } else if (view == mBtnSave) {
             FuelEntryServiceHandler fuelEntryServiceHandler = new FuelEntryServiceHandler(FuelEntryActivity.this);
             fuelEntryServiceHandler.doFuelEntryRequest(FuelEntryActivity.this, userID, mETFuelPlace.getText().toString(),
-            mETFuelAmount.getText().toString(), mETFuelTotal.getText().toString(),
-            mFuelEnteredDateInMills, mFuelType);
+                    mETFuelAmount.getText().toString(), mETFuelTotal.getText().toString(),
+                    mFuelEnteredDateInMills, mFuelType);
         }
 
     }
@@ -176,9 +177,10 @@ public class FuelEntryActivity extends Activity  implements View.OnClickListener
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                UIUtils.cancelProgressDialog();
                 Toast.makeText(FuelEntryActivity.this, getString(R.string.lbl_fuel_entry_saved),
                         Toast.LENGTH_SHORT).show();
-                clearAllFields();
+                //clearAllFields();
             }
         });
 

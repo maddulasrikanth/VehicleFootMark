@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 
 public class RegistrationServiceHandler  extends GenericServiceHandler {
-    private final String TAG = "RegistrationServiceHandler";
+    private final String TAG = "RegServiceHandler";
     OnRegistrationServiceHandlerListener mOnRegistrationServiceHandlerListener;
 
     public RegistrationServiceHandler(Context context) {

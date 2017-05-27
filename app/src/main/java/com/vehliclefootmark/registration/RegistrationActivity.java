@@ -4,20 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vehliclefootmark.HomeActivity;
 import com.vehliclefootmark.R;
 import com.vehliclefootmark.constants.ErrorConstants;
+import com.vehliclefootmark.constants.StringConstants;
 import com.vehliclefootmark.login.LoginActivity;
 import com.vehliclefootmark.login.LoginServiceHandler;
 import com.vehliclefootmark.util.UIUtils;
 
-public class RegistrationActivity extends Activity implements View.OnClickListener, OnRegistrationServiceHandlerListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RegistrationActivity extends Activity implements View.OnClickListener, OnRegistrationServiceHandlerListener,
+        AdapterView.OnItemSelectedListener, OnSeedInfoServiceHandlerListener {
 
     private ImageView mBackButton;
     private TextView mTxtHeader;
@@ -29,16 +37,21 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
     private EditText mETLastName;
     private EditText mETVehicleModel;
     private EditText mETVehicleNumber;
+    private int mUserID;
+    private Spinner mSpinnerVehicleModel;
+    private List<SeedInfo> models;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        mUserID = getIntent().getIntExtra(StringConstants.EXTRA_USER_ID, 0);
         initUI();
     }
 
     private void initUI() {
         setHeader();
+        getModels();
         mBtnRegister = (Button) findViewById(R.id.btn_Register);
         mBtnRegister.setOnClickListener(this);
         mETPassword = (EditText) findViewById(R.id.et_password);
@@ -48,6 +61,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         mETLastName = (EditText) findViewById(R.id.et_lastname);
         mETVehicleModel = (EditText) findViewById(R.id.et_vehicle_model);
         mETVehicleNumber = (EditText) findViewById(R.id.et_vehicle_number);
+        mSpinnerVehicleModel = (Spinner) findViewById(R.id.spinner_vehicle_model);
     }
 
     private void setHeader() {
@@ -106,6 +120,28 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
     }
 
     @Override
+    public void onSuccessResponse(final List<SeedInfo> seedInfoList) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UIUtils.cancelProgressDialog();
+                models = seedInfoList;
+                String[] models = new String[seedInfoList.size()];
+                for (int i=0;i<seedInfoList.size();i++) {
+                   SeedInfo seedInfo = seedInfoList.get(i);
+                    models[i] = seedInfo.getSeedInfoId()+" - "+seedInfo.getName();
+                }
+                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(RegistrationActivity.this, android.R.layout.simple_spinner_item, models );
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mSpinnerVehicleModel.setAdapter(adapter);
+                mSpinnerVehicleModel.setOnItemSelectedListener(RegistrationActivity.this);
+                        Toast.makeText(RegistrationActivity.this, seedInfoList.size() + "",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
     public void onRegistrationSuccess() {
         runOnUiThread(new Runnable() {
             @Override
@@ -119,4 +155,20 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         });
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+        String text = ((TextView)view).getText().toString();
+        Toast.makeText(RegistrationActivity.this, text,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    public void getModels() {
+        SeedInfoServiceHandler seedInfoServiceHandler = new SeedInfoServiceHandler(this);
+        seedInfoServiceHandler.getModelListRequest(RegistrationActivity.this, mUserID);
+    }
 }

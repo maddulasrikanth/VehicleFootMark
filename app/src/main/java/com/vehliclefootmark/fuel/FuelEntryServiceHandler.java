@@ -24,14 +24,19 @@ public class FuelEntryServiceHandler extends GenericServiceHandler {
         mOnFuelEntryServiceHandlerListener =(OnFuelEntryServiceHandlerListener) context;
     }
 
-    public void doFuelEntryRequest(Context context, String userID, String fuelPlace, String fuelAmount,
+    public void doFuelEntryRequest(Context context, int userID, String fuelPlace, String fuelAmount,
                                    String fuelTotal, long filledDateInMills, String fuelType) {
 
         String url = URLConstant.BASE_URL + URLConstant.FUEL_ENTRY_PATH;
-        HashMap<String, String> paramters = new HashMap<String, String>();
-        //paramters.put("un", username);
+        HashMap<String, String> parameters = new HashMap<String, String>();
+        parameters.put("loggedUser", userID+"");
+        parameters.put("date", filledDateInMills+"");
+        parameters.put("fuelType", fuelType);
+        parameters.put("place", fuelPlace);
+        parameters.put("totalFuel", fuelTotal);
+        parameters.put("amount", fuelAmount+"");
 
-        RequestPacket requestPacket = new RequestPacket(url, NetworkManager.METHOD[1], paramters, "");
+        RequestPacket requestPacket = new RequestPacket(url, NetworkManager.METHOD[1], parameters, "");
         UIUtils.showProgressDialog(context, context.getString(R.string.lbl_progress_bar_message));
         execute(requestPacket);
     }

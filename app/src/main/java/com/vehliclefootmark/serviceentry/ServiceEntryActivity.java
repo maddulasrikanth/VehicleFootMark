@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.vehliclefootmark.R;
 import com.vehliclefootmark.constants.ErrorConstants;
+import com.vehliclefootmark.constants.StringConstants;
 import com.vehliclefootmark.login.LoginActivity;
 import com.vehliclefootmark.net.OnServiceRequestHandlerListener;
 import com.vehliclefootmark.util.UIUtils;
@@ -44,11 +45,13 @@ public class ServiceEntryActivity extends Activity implements OnClickListener, A
     private EditText mETLabourCost;
     private long completedDateInMills;
     private long nextDueInMills;
+    private int mUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_entry);
+        mUserID = getIntent().getIntExtra(StringConstants.EXTRA_USER_ID, 0);
         initUI();
     }
 
@@ -104,7 +107,7 @@ public class ServiceEntryActivity extends Activity implements OnClickListener, A
 
     private void saveServiceEntry() {
         ServiceEntryHandler serviceEntryHandler = new ServiceEntryHandler(ServiceEntryActivity.this);
-        serviceEntryHandler.doServiceEntryRequest(ServiceEntryActivity.this,"" ,mTypeOfService,
+        serviceEntryHandler.doServiceEntryRequest(ServiceEntryActivity.this, mUserID, mTypeOfService,
                 mETLabourCost.getText().toString(), mETPartsCost.getText().toString(),
                 mETTax.getText().toString(), completedDateInMills, nextDueInMills,
                 mETServicedBy.getText().toString(), mETComments.getText().toString());

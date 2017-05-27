@@ -95,8 +95,8 @@ public class LoginActivity extends Activity implements OnClickListener, OnLoginS
     @Override
     public void onSuccessLogin(LoginResponseDTO loginResponse) {
         Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
-        homeIntent.putExtra(StringConstants.EXTRA_USER_ID, loginResponse.getEmail());
-        homeIntent.putExtra(StringConstants.EXTRA_IS_ADMIN, false);
+        homeIntent.putExtra(StringConstants.EXTRA_USER_ID, loginResponse.getUserNumber());
+        homeIntent.putExtra(StringConstants.EXTRA_IS_ADMIN, loginResponse.isAdmin());
         startActivity(homeIntent);
         UIUtils.cancelProgressDialog();
         finish();

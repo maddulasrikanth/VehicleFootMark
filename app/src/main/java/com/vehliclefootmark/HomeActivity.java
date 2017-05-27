@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.vehliclefootmark.constants.StringConstants;
 import com.vehliclefootmark.fuel.FuelEntryActivity;
 import com.vehliclefootmark.login.LoginActivity;
+import com.vehliclefootmark.registration.RegistrationActivity;
 import com.vehliclefootmark.repair.RepairEntryActivity;
+import com.vehliclefootmark.reports.ReportActivity;
 import com.vehliclefootmark.serviceentry.ServiceEntryActivity;
 
 public class HomeActivity extends Activity implements AdapterView.OnItemClickListener, OnClickListener{
@@ -23,16 +25,16 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
     private ImageView mBackButton;
     private TextView mTxtHeader;
     private ImageView mLogoutButton;
-    private String mUserID;
+    private int mUserID;
     private boolean mIsAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initUI();
-        mUserID = getIntent().getStringExtra(StringConstants.EXTRA_USER_ID);
+        mUserID = getIntent().getIntExtra(StringConstants.EXTRA_USER_ID, 0);
         mIsAdmin = getIntent().getBooleanExtra(StringConstants.EXTRA_IS_ADMIN, false);
+        initUI();
     }
 
     private void initUI() {
@@ -64,13 +66,29 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         switch (i){
             case 0:
-                startActivity(new Intent(HomeActivity.this, ServiceEntryActivity.class));
+                Intent serviceIntent = new Intent(HomeActivity.this, ServiceEntryActivity.class);
+                serviceIntent.putExtra(StringConstants.EXTRA_USER_ID, mUserID);
+                startActivity(serviceIntent);
                 break;
             case 1:
-                startActivity(new Intent(HomeActivity.this, RepairEntryActivity.class));
+                Intent repairIntent = new Intent(HomeActivity.this, RepairEntryActivity.class);
+                repairIntent.putExtra(StringConstants.EXTRA_USER_ID, mUserID);
+                startActivity(repairIntent);
                 break;
             case 2:
-                startActivity(new Intent(HomeActivity.this, FuelEntryActivity.class));
+                Intent fuelIntent = new Intent(HomeActivity.this, FuelEntryActivity.class);
+                fuelIntent.putExtra(StringConstants.EXTRA_USER_ID, mUserID);
+                startActivity(fuelIntent);
+                break;
+            case 3:
+                Intent reportIntent = new Intent(HomeActivity.this, ReportActivity.class);
+                reportIntent.putExtra(StringConstants.EXTRA_USER_ID, mUserID);
+                startActivity(reportIntent);
+                break;
+            case 4:
+                Intent registrationIntent = new Intent(HomeActivity.this, RegistrationActivity.class);
+                registrationIntent.putExtra(StringConstants.EXTRA_USER_ID, mUserID);
+                startActivity(registrationIntent);
                 break;
         }
     }

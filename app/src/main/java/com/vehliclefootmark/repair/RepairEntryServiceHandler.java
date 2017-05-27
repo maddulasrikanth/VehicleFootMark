@@ -25,14 +25,20 @@ public class RepairEntryServiceHandler  extends GenericServiceHandler {
         mOnRepairEntryServiceHandlerListener =(OnRepairEntryServiceHandlerListener) context;
     }
 
-    public void doRepairEntryRequest(Context context, String userID, String laborCost, String materialCost,
+    public void doRepairEntryRequest(Context context, int userID, String laborCost, String materialCost,
                                    String repairSummary, String summary, long problemDate, long repairDate) {
 
         String url = URLConstant.BASE_URL + URLConstant.REPAIR_ENTRY_PATH;
-        HashMap<String, String> paramters = new HashMap<String, String>();
-        //paramters.put("un", username);
+        HashMap<String, String> parameters = new HashMap<String, String>();
+        parameters.put("loggedUser", userID+"");
+        parameters.put("labourCost", laborCost);
+        parameters.put("repairFoundDate", problemDate+"");
+        parameters.put("dateOfRepair", repairDate+"");
+        parameters.put("problemSummary", summary);
+        parameters.put("repairSummary", repairSummary);
+        parameters.put("materialCost", materialCost);
 
-        RequestPacket requestPacket = new RequestPacket(url, NetworkManager.METHOD[1], paramters, "");
+        RequestPacket requestPacket = new RequestPacket(url, NetworkManager.METHOD[1], parameters, "");
         UIUtils.showProgressDialog(context, context.getString(R.string.lbl_progress_bar_message));
         execute(requestPacket);
     }

@@ -5,12 +5,12 @@
         <item>Repair Entry</item>
         <item>Fuel Entry</item>
         <item>Reports</item>
+        <item>Register User</item>
     </string-array>
     <string-array name="selection">
         <item>Service Entry</item>
         <item>Repair Entry</item>
         <item>Fuel Entry</item>
-        <item>Reports</item>
     </string-array>
     <string-array name="services_array">
         <item>Interim service</item>

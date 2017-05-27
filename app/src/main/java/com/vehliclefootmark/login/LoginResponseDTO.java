@@ -8,14 +8,16 @@ public class LoginResponseDTO {
     private String lastName;
     private String vehicleModel;
     private String vehicleNumber;
+    private boolean admin;
 
-    public LoginResponseDTO(int userNumber, String email, String firstName, String lastName, String vehicleModel, String vehicleNumber) {
+    public LoginResponseDTO(int userNumber, String email, String firstName, String lastName, String vehicleModel, String vehicleNumber, boolean admin) {
         this.userNumber = userNumber;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.vehicleModel = vehicleModel;
         this.vehicleNumber = vehicleNumber;
+        this.admin = admin;
     }
 
     public int getUserNumber() {
@@ -66,4 +68,11 @@ public class LoginResponseDTO {
         this.vehicleNumber = vehicleNumber;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }
