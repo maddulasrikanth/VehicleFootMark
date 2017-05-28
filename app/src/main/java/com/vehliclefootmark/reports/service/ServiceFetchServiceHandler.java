@@ -1,5 +1,4 @@
-package com.vehliclefootmark.reports.fuel;
-
+package com.vehliclefootmark.reports.service;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,18 +16,18 @@ import com.vehliclefootmark.util.UIUtils;
 
 import java.util.HashMap;
 
-public class FuelFetchServiceHandler extends GenericServiceHandler {
-    private final String TAG = "FuelFetchHandler";
-    OnFuelFetchServiceHandlerListener mOnFuelFetchServiceHandlerListener;
+public class ServiceFetchServiceHandler extends GenericServiceHandler {
+    private final String TAG = "ServiceFetchHandler";
+    OnServiceFetchServiceHandlerListener mOnServiceFetchServiceHandlerListener;
 
-    public FuelFetchServiceHandler(Context context) {
+    public ServiceFetchServiceHandler(Context context) {
         super(context);
-        mOnFuelFetchServiceHandlerListener =(OnFuelFetchServiceHandlerListener) context;
+        mOnServiceFetchServiceHandlerListener =(OnServiceFetchServiceHandlerListener) context;
     }
 
-    public void getFuelReportRequest(Context context, int userID, long fromDate, long toDate) {
+    public void getServiceReportRequest(Context context, int userID, long fromDate, long toDate) {
 
-        String url = URLConstant.BASE_URL + URLConstant.FUEL_FETCH_PATH;
+        String url = URLConstant.BASE_URL + URLConstant.SERVICE_FETCH_PATH;
         HashMap<String, String> parameters = new HashMap<String, String>();
         parameters.put("rUserId", userID+"");
         parameters.put("fromDate", fromDate+"");
@@ -42,9 +41,10 @@ public class FuelFetchServiceHandler extends GenericServiceHandler {
     @Override
     protected void processResult(String result) throws JsonSyntaxException, VehicleFootMarkException {
         Log.i(TAG, "RESULT_1:: " + result);
-        FuelFetchDTO fuelFetchDTO = new Gson().fromJson(result,new TypeToken<FuelFetchDTO>() {}.getType());
-        Log.i(TAG, "FuelFetchDTO:: " + fuelFetchDTO.fuelList.size());
-        mOnFuelFetchServiceHandlerListener.onSuccessFuelFetch(fuelFetchDTO.fuelList);
+        ServiceFetchDTO serviceFetchDTO = new Gson().fromJson(result,new TypeToken<ServiceFetchDTO>() {}.getType());
+        Log.i(TAG, "ServiceFetchDTO:: " + serviceFetchDTO.serviceList.size());
+        mOnServiceFetchServiceHandlerListener.onSuccessServiceFetch(serviceFetchDTO.serviceList);
     }
 
 }
+

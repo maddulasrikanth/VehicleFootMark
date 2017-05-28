@@ -23,12 +23,16 @@ import com.vehliclefootmark.constants.ErrorConstants;
 import com.vehliclefootmark.reports.fuel.FuelFetchDTO;
 import com.vehliclefootmark.reports.fuel.FuelFetchServiceHandler;
 import com.vehliclefootmark.reports.fuel.OnFuelFetchServiceHandlerListener;
+import com.vehliclefootmark.reports.service.OnServiceFetchServiceHandlerListener;
+import com.vehliclefootmark.reports.service.ServiceDTO;
+import com.vehliclefootmark.reports.service.ServiceFetchServiceHandler;
 import com.vehliclefootmark.util.UIUtils;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class ReportActivity extends Activity implements View.OnClickListener, OnFuelFetchServiceHandlerListener , AdapterView.OnItemSelectedListener{
+public class ReportActivity extends Activity implements View.OnClickListener, OnFuelFetchServiceHandlerListener ,
+        AdapterView.OnItemSelectedListener, OnServiceFetchServiceHandlerListener {
 
     private Button mBtnGenerate;
     private int year;
@@ -44,6 +48,8 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
     private long mFromDateInMills;
     private long mToDateInMills;
     private int mReportType = 0;
+    private Spinner mSpinnerReportUsers;
+    private int mUserID = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,8 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerReportType.setAdapter(adapter);
         mSpinnerReportType.setOnItemSelectedListener(this);
+
+        mSpinnerReportUsers = (Spinner) findViewById(R.id.spinner_report_users);
 
         setCalendarDate();
     }
@@ -139,12 +147,14 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         } else if(view == mBtnGenerate){
             switch (mReportType){
                 case 0:
+                    ServiceFetchServiceHandler serviceFetchServiceHandler = new ServiceFetchServiceHandler(ReportActivity.this);
+                    serviceFetchServiceHandler.getServiceReportRequest(ReportActivity.this, mUserID, mFromDateInMills, mToDateInMills);
                     break;
                 case 1:
                     break;
                 case 2:
                     FuelFetchServiceHandler fuelFetchServiceHandler = new FuelFetchServiceHandler(ReportActivity.this);
-                    fuelFetchServiceHandler.getFuelReportRequest(ReportActivity.this, 2, mFromDateInMills, mToDateInMills);
+                    fuelFetchServiceHandler.getFuelReportRequest(ReportActivity.this, mUserID, mFromDateInMills, mToDateInMills);
                     break;
             }
         }
@@ -160,6 +170,23 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         UIUtils.cancelProgressDialog();
         Toast.makeText(ReportActivity.this, ErrorConstants.ERROR_LIST.get(errorCode),
                 Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessServiceFetch(final List<ServiceDTO> serviceList) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UIUtils.cancelProgressDialog();
+                Toast.makeText(ReportActivity.this, getString(R.string.lbl_fuel_entry_saved),
+                        Toast.LENGTH_SHORT).show();
+                createServiceTable(serviceList);
+            }
+        });
+    }
+
+    private void createServiceTable(List<ServiceDTO> serviceList) {
+
     }
 
     @Override
@@ -183,6 +210,8 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if(adapterView.getId() == mSpinnerReportType.getId()){
             mReportType = i;
+        } else if (adapterView.getId() == mSpinnerReportUsers.getId()){
+            mUserID = 2;
         }
     }
 
