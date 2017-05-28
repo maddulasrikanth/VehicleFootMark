@@ -23,6 +23,7 @@ import com.vehliclefootmark.constants.ErrorConstants;
 import com.vehliclefootmark.login.LoginResponseDTO;
 import com.vehliclefootmark.registration.RegistrationActivity;
 import com.vehliclefootmark.registration.SeedInfo;
+import com.vehliclefootmark.reports.fuel.Fuel;
 import com.vehliclefootmark.reports.fuel.FuelFetchDTO;
 import com.vehliclefootmark.reports.fuel.FuelFetchServiceHandler;
 import com.vehliclefootmark.reports.fuel.OnFuelFetchServiceHandlerListener;
@@ -59,6 +60,9 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
     private Spinner mSpinnerReportUsers;
     private int mUserID = 2;
     private Object users;
+    private TableLayout mTableService;
+    private TableLayout mTableFuel;
+    private TableLayout mTableRepair;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,10 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         mETDateFrom.setOnClickListener(this);
         mETDateTo = (EditText) findViewById(R.id.et_date_report_to);
         mETDateTo.setOnClickListener(this);
+        mTableService = (TableLayout) findViewById(R.id.table_service);
+        mTableRepair = (TableLayout) findViewById(R.id.table_repair);
+        mTableFuel = (TableLayout) findViewById(R.id.table_fuel);
+
         mSpinnerReportType = (Spinner) findViewById(R.id.spinner_report_type);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.report_list, android.R.layout.simple_spinner_item);
@@ -101,49 +109,6 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         mBackButton.setOnClickListener(this);
         mTxtHeader = (TextView) findViewById(R.id.txt_header_title);
         mTxtHeader.setText(getString(R.string.lbl_reports));
-    }
-
-    public void createTable(List<String> data) {
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.table_service);
-        for (int i = 0; i < data.size(); i++) {
-
-            TableRow tableRow = new TableRow(ReportActivity.this);
-            tableRow.setLayoutParams(new TableRow.LayoutParams( TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT ));
-
-            TextView qty = new TextView(this);
-            qty.setText(data.get(i)+"");
-            tableRow.addView(qty);
-
-            TextView qty1 = new TextView(this);
-            qty1.setText(data.get(i)+"");
-            tableRow.addView(qty1);
-
-            TextView qty2 = new TextView(this);
-            qty2.setText(data.get(i)+"");
-            tableRow.addView(qty2);
-
-            TextView qty3 = new TextView(this);
-            qty3.setText(data.get(i)+"");
-            tableRow.addView(qty3);
-
-            TextView qty4 = new TextView(this);
-            qty4.setText(data.get(i)+"");
-            tableRow.addView(qty4);
-
-            TextView qty5 = new TextView(this);
-            qty5.setText(data.get(i)+"");
-            tableRow.addView(qty5);
-
-            TextView qty6 = new TextView(this);
-            qty6.setText(data.get(i)+"");
-            tableRow.addView(qty6);
-
-            TextView qty7 = new TextView(this);
-            qty7.setText(data.get(i)+"");
-            tableRow.addView(qty7);
-
-            tableLayout.addView(tableRow, i+1);
-        }
     }
 
     @Override
@@ -215,7 +180,53 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
     }
 
     private void createRepairTable(List<Repair> repairList) {
+        mTableRepair.setVisibility(View.VISIBLE);
+        mTableService.setVisibility(View.GONE);
+        mTableFuel.setVisibility(View.GONE);
 
+        for (int i = 0; i < repairList.size(); i++) {
+
+            TableRow tableRow = new TableRow(ReportActivity.this);
+            tableRow.setLayoutParams(new TableRow.LayoutParams( TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT ));
+            Repair repair = repairList.get(i);
+
+            TextView qty0 = new TextView(this);
+            qty0.setText((i+1)+"");
+            qty0.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty0);
+
+            TextView qty = new TextView(this);
+            qty.setText(UIUtils.convertMillsToDate(repair.getRepairFoundDate())+"");
+            qty.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty);
+
+            TextView qty1 = new TextView(this);
+            qty1.setText(UIUtils.convertMillsToDate(repair.getDateOfRepair())+"");
+            qty1.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty1);
+
+            TextView qty2 = new TextView(this);
+            qty2.setText(repair.getProblemSummary()+"");
+            qty2.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty2);
+
+            TextView qty3 = new TextView(this);
+            qty3.setText(repair.getRepairSummary()+"");
+            qty3.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty3);
+
+            TextView qty4 = new TextView(this);
+            qty4.setText(repair.getMaterialCost()+"");
+            qty4.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty4);
+
+            TextView qty5 = new TextView(this);
+            qty5.setText(repair.getLabourCost()+"");
+            qty5.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty5);
+
+            mTableRepair.addView(tableRow, i+1);
+        }
     }
 
     @Override
@@ -229,12 +240,68 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         });
     }
 
-    private void createServiceTable(List<ServiceDTO> serviceList) {
+    private void createServiceTable(List<ServiceDTO> serviceDTOList) {
+        mTableService.setVisibility(View.VISIBLE);
+        mTableRepair.setVisibility(View.GONE);
+        mTableFuel.setVisibility(View.GONE);
 
+        for (int i = 0; i < serviceDTOList.size(); i++) {
+
+            TableRow tableRow = new TableRow(ReportActivity.this);
+            tableRow.setLayoutParams(new TableRow.LayoutParams( TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT ));
+            ServiceDTO serviceDTO = serviceDTOList.get(i);
+
+            TextView qty0 = new TextView(this);
+            qty0.setText((i+1)+"");
+            qty0.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty0);
+
+            TextView qty = new TextView(this);
+            qty.setText(serviceDTO.getType());
+            qty.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty);
+
+            TextView qty1 = new TextView(this);
+            qty1.setText(serviceDTO.getLabourcost()+"");
+            qty1.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty1);
+
+            TextView qty2 = new TextView(this);
+            qty2.setText(serviceDTO.getPartscost()+"");
+            qty2.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty2);
+
+            TextView qty3 = new TextView(this);
+            qty3.setText(serviceDTO.getTax()+"");
+            qty3.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty3);
+
+            TextView qty4 = new TextView(this);
+            qty4.setText(UIUtils.convertMillsToDate(serviceDTO.getCompletedDate())+"");
+            qty4.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty4);
+
+            TextView qty5 = new TextView(this);
+            qty5.setText(UIUtils.convertMillsToDate(serviceDTO.getNextDue())+"");
+            qty5.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty5);
+
+            TextView qty6 = new TextView(this);
+            qty6.setText(serviceDTO.getServicedBy());
+            qty6.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty6);
+
+            TextView qty7 = new TextView(this);
+            qty7.setText(serviceDTO.getComments());
+            qty7.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty7);
+
+            mTableService.addView(tableRow, i+1);
+        }
     }
 
     @Override
-    public void onSuccessFuelFetch(final List<FuelFetchDTO> fuelList) {
+    public void onSuccessFuelFetch(final List<Fuel> fuelList) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -244,8 +311,49 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         });
     }
 
-    private void createFuelTable(List<FuelFetchDTO> fuelList) {
+    private void createFuelTable(List<Fuel> fuelList) {
+        mTableFuel.setVisibility(View.VISIBLE);
+        mTableRepair.setVisibility(View.GONE);
+        mTableService.setVisibility(View.GONE);
 
+        for (int i = 0; i < fuelList.size(); i++) {
+
+            TableRow tableRow = new TableRow(ReportActivity.this);
+            tableRow.setLayoutParams(new TableRow.LayoutParams( TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT ));
+            Fuel fuel = fuelList.get(i);
+
+            TextView qty0 = new TextView(this);
+            qty0.setText((i+1)+"");
+            qty0.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty0);
+
+            TextView qty = new TextView(this);
+            qty.setText(UIUtils.convertMillsToDate(fuel.getDate())+"");
+            qty.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty);
+
+            TextView qty1 = new TextView(this);
+            qty1.setText(fuel.getFuelType()+"");
+            qty1.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty1);
+
+            TextView qty2 = new TextView(this);
+            qty2.setText(fuel.getPlace()+"");
+            qty2.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty2);
+
+            TextView qty3 = new TextView(this);
+            qty3.setText(fuel.getTotalFuel()+"");
+            qty3.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty3);
+
+            TextView qty4 = new TextView(this);
+            qty4.setText(fuel.getAmount()+"");
+            qty4.setBackground(getDrawable(R.drawable.cell_background));
+            tableRow.addView(qty4);
+
+            mTableFuel.addView(tableRow, i+1);
+        }
     }
 
     @Override

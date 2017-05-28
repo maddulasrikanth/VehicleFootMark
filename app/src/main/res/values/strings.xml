@@ -73,5 +73,14 @@
     <string name="serviced_by">Serviced By</string>
     <string name="comments">Comments</string>
     <string name="lbl_repair_entry_form">Repair Entry form</string>
+    <string name="serial_no">S.No.</string>
+    <string name="repair_found_date">Repair Found Date</string>
+    <string name="date_of_repair">Date Of Repair</string>
+    <string name="problem_summary">Problem Summary</string>
+    <string name="repair_summary">Repair Summary</string>
+    <string name="date">Date</string>
+    <string name="fuel_type">Fuel Type</string>
+    <string name="prompt_date_to">Date To</string>
+    <string name="date_from">Date From</string>
 
 </resources>
