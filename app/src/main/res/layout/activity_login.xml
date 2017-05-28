@@ -65,13 +65,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/check_is_admin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_is_admin"
-                android:textSize="@dimen/header_text_size" />
-
             <Button
                 android:id="@+id/btn_Login"
                 style="?android:textAppearanceSmall"

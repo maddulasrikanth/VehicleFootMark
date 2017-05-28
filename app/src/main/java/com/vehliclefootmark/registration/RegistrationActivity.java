@@ -35,11 +35,11 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
     private EditText mETEmailID;
     private EditText mETFirstName;
     private EditText mETLastName;
-    private EditText mETVehicleModel;
     private EditText mETVehicleNumber;
     private int mUserID;
     private Spinner mSpinnerVehicleModel;
     private List<SeedInfo> models;
+    private String mModelID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
         mETEmailID = (EditText) findViewById(R.id.et_email);
         mETFirstName = (EditText) findViewById(R.id.et_firstname);
         mETLastName = (EditText) findViewById(R.id.et_lastname);
-        mETVehicleModel = (EditText) findViewById(R.id.et_vehicle_model);
         mETVehicleNumber = (EditText) findViewById(R.id.et_vehicle_number);
         mSpinnerVehicleModel = (Spinner) findViewById(R.id.spinner_vehicle_model);
     }
@@ -86,9 +85,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
                 registrationServiceHandler.doRegisterRequest(RegistrationActivity.this,
                         mETFirstName.getText().toString(), mETLastName.getText().toString(),
                         mETEmailID.getText().toString(), mETPassword.getText().toString(),
-                        mETVehicleModel.getText().toString(), mETVehicleNumber.getText().toString());
-
-                Toast.makeText(RegistrationActivity.this, R.string.lbl_trying_to_register, Toast.LENGTH_SHORT).show();
+                        mModelID, mETVehicleNumber.getText().toString());
             }
         }
     }
@@ -96,7 +93,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
     private boolean isAnyFieldEmpty() {
         if (mETFirstName.getText().toString().isEmpty() || mETLastName.getText().toString().isEmpty() ||
                 mETEmailID.getText().toString().isEmpty() || mETPassword.getText().toString().isEmpty() ||
-                mETConfirmPassword.getText().toString().isEmpty() || mETVehicleModel.getText().toString().isEmpty() ||
+                mETConfirmPassword.getText().toString().isEmpty() ||
                 mETVehicleNumber.getText().toString().isEmpty())
             return true;
         return false;
@@ -127,16 +124,14 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
                 UIUtils.cancelProgressDialog();
                 models = seedInfoList;
                 String[] models = new String[seedInfoList.size()];
-                for (int i=0;i<seedInfoList.size();i++) {
-                   SeedInfo seedInfo = seedInfoList.get(i);
-                    models[i] = seedInfo.getSeedInfoId()+" - "+seedInfo.getName();
+                for (int i = 0; i < seedInfoList.size(); i++) {
+                    SeedInfo seedInfo = seedInfoList.get(i);
+                    models[i] = seedInfo.getSeedInfoId() + "-" + seedInfo.getName();
                 }
-                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(RegistrationActivity.this, android.R.layout.simple_spinner_item, models );
+                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(RegistrationActivity.this, android.R.layout.simple_spinner_item, models);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mSpinnerVehicleModel.setAdapter(adapter);
                 mSpinnerVehicleModel.setOnItemSelectedListener(RegistrationActivity.this);
-                        Toast.makeText(RegistrationActivity.this, seedInfoList.size() + "",
-                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -148,7 +143,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
             public void run() {
                 Toast.makeText(RegistrationActivity.this, getString(R.string.lbl_user_registered_successfully),
                         Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                 UIUtils.cancelProgressDialog();
                 finish();
             }
@@ -157,9 +151,8 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-        String text = ((TextView)view).getText().toString();
-        Toast.makeText(RegistrationActivity.this, text,
-                Toast.LENGTH_SHORT).show();
+        String user = (String) adapterView.getAdapter().getItem(pos);
+        mModelID = user.split("-")[0];
     }
 
     @Override

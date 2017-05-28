@@ -25,13 +25,12 @@ public class LoginServiceHandler extends GenericServiceHandler {
 		mOnLoginServiceHandlerListener=(OnLoginServiceHandlerListener) context;
 	}
 
-	public void doLoginRequest(Context context, String username, String password, boolean isAdmin) {
+	public void doLoginRequest(Context context, String username, String password) {
 
 		String url = URLConstant.BASE_URL + URLConstant.LOGIN_PATH;
 		HashMap<String, String> paramters = new HashMap<String, String>();
 		paramters.put("un", username);
 		paramters.put("pw", password);
-		paramters.put("isadmin", isAdmin+"");
 
 		RequestPacket requestPacket = new RequestPacket(url, NetworkManager.METHOD[1], paramters, "");
 		UIUtils.showProgressDialog(context, context.getString(R.string.lbl_progress_bar_message));

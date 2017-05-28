@@ -46,10 +46,6 @@ public class RegistrationServiceHandler  extends GenericServiceHandler {
 
     @Override
     protected void processResult(String result) throws JsonSyntaxException, VehicleFootMarkException {
-        Log.i(TAG, "LOGIN RESULT_1:: " + result);
-        LoginResponseDTO loginResponse = new Gson().fromJson(result, new TypeToken<LoginResponseDTO>() {
-        }.getType());
-        Log.i(TAG, "LOGIN getEmail:: " + loginResponse.getEmail());
         mOnRegistrationServiceHandlerListener.onRegistrationSuccess();
     }
 

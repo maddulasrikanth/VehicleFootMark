@@ -41,10 +41,9 @@ public class SeedInfoServiceHandler  extends GenericServiceHandler {
     @Override
     protected void processResult(String result) throws JsonSyntaxException, VehicleFootMarkException {
         Log.i(TAG, "LOGIN RESULT_1:: " + result);
-        List<SeedInfo> seedInfoList = new Gson().fromJson(result, new TypeToken<LoginResponseDTO>() {
-        }.getType());
-        Log.i(TAG, "LOGIN getEmail:: " + seedInfoList.size());
-        mOnSeedInfoServiceHandlerListener.onSuccessResponse(seedInfoList);
+        SeedInfoList seedInfoList = new Gson().fromJson(result, new TypeToken<SeedInfoList>() {}.getType());
+        Log.i(TAG, "LOGIN getEmail:: " + seedInfoList.seedInfoList.size());
+        mOnSeedInfoServiceHandlerListener.onSuccessResponse(seedInfoList.seedInfoList);
     }
 
     private void showDialog(int errorCode) {

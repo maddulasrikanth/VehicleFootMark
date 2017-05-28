@@ -102,22 +102,8 @@
             <Spinner
                 android:id="@+id/spinner_vehicle_model"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/et_vehicle_model"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_vehicle_model"
-                    android:inputType="textNoSuggestions"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
