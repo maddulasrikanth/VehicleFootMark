@@ -23,6 +23,9 @@ import com.vehliclefootmark.constants.ErrorConstants;
 import com.vehliclefootmark.reports.fuel.FuelFetchDTO;
 import com.vehliclefootmark.reports.fuel.FuelFetchServiceHandler;
 import com.vehliclefootmark.reports.fuel.OnFuelFetchServiceHandlerListener;
+import com.vehliclefootmark.reports.repair.OnRepairFetchServiceHandlerListener;
+import com.vehliclefootmark.reports.repair.Repair;
+import com.vehliclefootmark.reports.repair.RepairFetchServiceHandler;
 import com.vehliclefootmark.reports.service.OnServiceFetchServiceHandlerListener;
 import com.vehliclefootmark.reports.service.ServiceDTO;
 import com.vehliclefootmark.reports.service.ServiceFetchServiceHandler;
@@ -32,7 +35,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ReportActivity extends Activity implements View.OnClickListener, OnFuelFetchServiceHandlerListener ,
-        AdapterView.OnItemSelectedListener, OnServiceFetchServiceHandlerListener {
+        AdapterView.OnItemSelectedListener, OnServiceFetchServiceHandlerListener, OnRepairFetchServiceHandlerListener {
 
     private Button mBtnGenerate;
     private int year;
@@ -151,6 +154,8 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
                     serviceFetchServiceHandler.getServiceReportRequest(ReportActivity.this, mUserID, mFromDateInMills, mToDateInMills);
                     break;
                 case 1:
+                    RepairFetchServiceHandler repairFetchServiceHandler = new RepairFetchServiceHandler(ReportActivity.this);
+                    repairFetchServiceHandler.getRepairReportRequest(ReportActivity.this, mUserID, mFromDateInMills, mToDateInMills);
                     break;
                 case 2:
                     FuelFetchServiceHandler fuelFetchServiceHandler = new FuelFetchServiceHandler(ReportActivity.this);
@@ -170,6 +175,23 @@ public class ReportActivity extends Activity implements View.OnClickListener, On
         UIUtils.cancelProgressDialog();
         Toast.makeText(ReportActivity.this, ErrorConstants.ERROR_LIST.get(errorCode),
                 Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessRepairFetch(final List<Repair> repairList) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UIUtils.cancelProgressDialog();
+                Toast.makeText(ReportActivity.this, getString(R.string.lbl_fuel_entry_saved),
+                        Toast.LENGTH_SHORT).show();
+                createRepairTable(repairList);
+            }
+        });
+    }
+
+    private void createRepairTable(List<Repair> repairList) {
+
     }
 
     @Override
