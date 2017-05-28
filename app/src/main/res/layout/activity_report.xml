@@ -29,11 +29,13 @@
             android:id="@+id/spinner_report_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin"
             android:layout_weight="1" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin">
 
             <EditText
                 android:id="@+id/et_date_report_from"
@@ -85,60 +87,60 @@
                     <TableRow android:background="#3366FF">
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/type_of_service" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/type_of_service"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/labour_cost" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/labour_cost"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/parts_cost" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/parts_cost"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/tax" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/tax"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/completed_date" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/completed_date"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/next_due_date" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/next_due_date"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/serviced_by" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/serviced_by"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@android:color/white"
-                            android:padding="@dimen/table_text_padding"
                             android:layout_margin="@dimen/table_text_margin"
-                            android:text="@string/comments" />
+                            android:padding="@dimen/table_text_padding"
+                            android:text="@string/comments"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
                     </TableRow>
 
                 </TableLayout>

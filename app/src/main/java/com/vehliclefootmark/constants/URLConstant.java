@@ -12,4 +12,5 @@ public class URLConstant {
 	public static final String FUEL_FETCH_PATH = "FetchFuelDetails";
 	public static final String SERVICE_FETCH_PATH = "FetchServiceDetails";
 	public static final String SEED_PROVIDER_PATH = "SeedInfoProvider";
+	public static final String NON_ADMIN_USERS_FETCH_PATH = "NonAdminUsersListServlet";
 }
