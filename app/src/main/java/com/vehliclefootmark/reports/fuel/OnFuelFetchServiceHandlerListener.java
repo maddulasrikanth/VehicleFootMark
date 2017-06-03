@@ -9,5 +9,5 @@ public interface OnFuelFetchServiceHandlerListener extends OnServiceRequestHandl
 
     void showErrorDialog(int errorCode);
 
-    void onSuccessFuelFetch(List<FuelFetchDTO> fuelList);
+    void onSuccessFuelFetch(List<Fuel> fuelList);
 }

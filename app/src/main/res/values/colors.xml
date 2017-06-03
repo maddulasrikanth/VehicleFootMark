@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="text_color">#000000</color>
     <color name="header_text_color">#ffffff</color>
+    <color name="table_header">#3366FF</color>
 </resources>

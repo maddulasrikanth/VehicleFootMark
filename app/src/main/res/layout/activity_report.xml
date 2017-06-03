@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:hint="@string/date_of_problem"
+                android:hint="@string/date_from"
                 android:inputType="textNoSuggestions|date"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:hint="@string/prompt_date_of_repair"
+                android:hint="@string/prompt_date_to"
                 android:inputType="textNoSuggestions|date"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -79,71 +79,221 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TableLayout
-                    android:id="@+id/table_service"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <TableRow android:background="#3366FF">
+                    <TableLayout
+                        android:id="@+id/table_service"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/type_of_service"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                        <TableRow android:background="@color/table_header">
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/labour_cost"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/serial_no"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/parts_cost"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/type_of_service"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/tax"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/labour_cost"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/completed_date"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/parts_cost"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/next_due_date"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/tax"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/serviced_by"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/completed_date"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_margin="@dimen/table_text_margin"
-                            android:padding="@dimen/table_text_padding"
-                            android:text="@string/comments"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
-                    </TableRow>
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/next_due_date"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
 
-                </TableLayout>
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/serviced_by"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/comments"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <TableLayout
+                        android:id="@+id/table_repair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <TableRow android:background="@color/table_header">
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/serial_no"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/repair_found_date"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/date_of_repair"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/problem_summary"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/repair_summary"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/prompt_material_cost"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/labour_cost"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <TableLayout
+                        android:id="@+id/table_fuel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <TableRow android:background="@color/table_header">
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/serial_no"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/date"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/fuel_type"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/prompt_fuel_place"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/prompt_total_fuel"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_margin="@dimen/table_text_margin"
+                                android:background="@drawable/cell_header_background"
+                                android:padding="@dimen/table_text_padding"
+                                android:text="@string/prompt_amount"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold" />
+
+                        </TableRow>
+
+                    </TableLayout>
+                </RelativeLayout>
             </HorizontalScrollView>
         </ScrollView>
     </LinearLayout>
